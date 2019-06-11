@@ -1,6 +1,14 @@
 /*
  * Create a list that holds all of your cards
  */
+let card = document.querySelectorAll(".card");
+let deckCards = [...card];
+
+
+/* Iterator that will allow to shuffle the list of cards*/
+for (let i=0; i <= deckCards.length; i++) {
+deckCards[i].classList.add('fa');
+}
 
 
 /*
