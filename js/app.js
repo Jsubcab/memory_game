@@ -1,25 +1,59 @@
 /*
  * Create a list that holds all of your cards
  */
+const baseDeck = document.querySelector(".deck");
 let card = document.querySelectorAll(".card");
 let deckCards = [...card];
-
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-shuffle(deckCards);
 
-/* Iterator that will allow to shuffle the list of cards*/
+/* addEventListener to the deckCards */
 for (let i=0; i <= deckCards.length; i++) {
 let cards = deckCards[i];
+
 cards.addEventListener('click', function() {
     deckCards[i].className = 'card open show';
 });
 }
 
+/* shuffle */
+function start() {
+    let shuffledCards = shuffle(deckCards);
+    let newArrayCards = [];
+
+    for (let i = 0; i < shuffledCards.length; i++){
+    newArrayCards.push(shuffledCards[i]);
+    }
+    baseDeck.appendChild(newArrayCards);
+    
+    /*
+    const shuffledCards = shuffle(deckCards);
+    for (let i=0; i < shuffledCards.length; i++) {
+        [].forEach.call(shuffledCards, function(eachCard) {
+                baseDeck.appendChild(eachCard);
+            }
+        );
+    }*/
+}
+window.onload = start();
+
+/* function to check if is 2 cards open it */
+/*
+function isOpen () {
+let openCount = 0;
+
+    if (openCount < 2) {
+        if () {
+
+        }
+    } else {
+        restLives();
+    }
+}*/
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
