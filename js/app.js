@@ -11,9 +11,13 @@ let deckCards = [...card];
  *   - add each card's HTML to the page
  */
 shuffle(deckCards);
+
 /* Iterator that will allow to shuffle the list of cards*/
 for (let i=0; i <= deckCards.length; i++) {
-    let a = deckCards[i].className = 'card';
+let cards = deckCards[i];
+cards.addEventListener('click', function() {
+    deckCards[i].className = 'card open show';
+});
 }
 
 
