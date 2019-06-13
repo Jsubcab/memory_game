@@ -4,6 +4,14 @@
 const baseDeck = document.querySelector(".deck");
 let card = document.querySelectorAll(".card");
 let deckCards = [...card];
+
+// counter lives
+let life = 3;
+// counter cards flipped
+let flippedCards = 2;
+// array cards flipped
+let arrayflippedCards = [];
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -11,27 +19,29 @@ let deckCards = [...card];
  *   - add each card's HTML to the page
  */
 
-/* addEventListener to the deckCards */
-for (let i=0; i <= deckCards.length; i++) {
-let cards = deckCards[i];
-
-cards.addEventListener('click', function() {
-    deckCards[i].className = 'card open show';
-});
+/* remove cards from the div .deck */
+let shuffledCards = shuffle(deckCards);
+for (remove of deckCards) {
+    baseDeck.removeChild(document.querySelector('.card'));
 }
 
-/* shuffle */
-function start() {
-    let shuffledCards = shuffle(deckCards);
-    baseDeck.innerHTML("");
+/* Add cards shuffled to the div .deck */
+for (let add = 0; add < deckCards.length; add++) {
+    baseDeck.appendChild(shuffledCards[add]);
 
-    for (cards of shuffledCards) {
-        cards.className = 'card';
-        baseDeck.appendChild(cards);
-    }
-
+    /* activate the function to flip show */
+    deckCards[add].addEventListener('click', function() {
+        //you can only flip 2 cards max at the same time
+        if (flippedCards > 0) {
+        deckCards[add].className = 'card open show';
+        arrayflippedCards.push(deckCards[add]);
+        flippedCards--;
+        }
+    });
 }
-window.onload = start();
+
+
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
