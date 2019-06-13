@@ -23,37 +23,15 @@ cards.addEventListener('click', function() {
 /* shuffle */
 function start() {
     let shuffledCards = shuffle(deckCards);
-    let newArrayCards = [];
+    baseDeck.innerHTML("");
 
-    for (let i = 0; i < shuffledCards.length; i++){
-    newArrayCards.push(shuffledCards[i]);
+    for (cards of shuffledCards) {
+        cards.className = 'card';
+        baseDeck.appendChild(cards);
     }
-    baseDeck.appendChild(newArrayCards);
-    
-    /*
-    const shuffledCards = shuffle(deckCards);
-    for (let i=0; i < shuffledCards.length; i++) {
-        [].forEach.call(shuffledCards, function(eachCard) {
-                baseDeck.appendChild(eachCard);
-            }
-        );
-    }*/
+
 }
 window.onload = start();
-
-/* function to check if is 2 cards open it */
-/*
-function isOpen () {
-let openCount = 0;
-
-    if (openCount < 2) {
-        if () {
-
-        }
-    } else {
-        restLives();
-    }
-}*/
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
