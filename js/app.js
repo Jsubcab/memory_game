@@ -36,6 +36,7 @@ let shuffledCards = shuffle(deckCards);
             } else {
                 deckCards[add].className='card';
                 deckCards[add-1].className='card';
+                arrayflippedCards = [];
                 flippedCards = 2;
             }
         });
