@@ -5,41 +5,42 @@ const baseDeck = document.querySelector(".deck");
 let card = document.querySelectorAll(".card");
 let deckCards = [...card];
 
-// counter lives
-let life = 3;
+// counter moves
+let moves = document.querySelector('.moves').innerHTML;
 // counter cards flipped
 let flippedCards = 2;
 // array cards flipped
 let arrayflippedCards = [];
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 /* remove cards from the div .deck */
 let shuffledCards = shuffle(deckCards);
-for (remove of deckCards) {
-    baseDeck.removeChild(document.querySelector('.card'));
-}
 
-/* Add cards shuffled to the div .deck */
-for (let add = 0; add < deckCards.length; add++) {
-    baseDeck.appendChild(shuffledCards[add]);
+    for (remove of deckCards) {
+        baseDeck.removeChild(document.querySelector('.card'));
+    }
 
-    /* activate the function to flip show */
-    deckCards[add].addEventListener('click', function() {
-        //you can only flip 2 cards max at the same time
-        if (flippedCards > 0) {
-        deckCards[add].className = 'card open show';
-        arrayflippedCards.push(deckCards[add]);
-        flippedCards--;
-        }
-    });
-}
+    /* Add cards shuffled to the div .deck */
+    for (let add = 0; add < deckCards.length; add++) {
+        baseDeck.appendChild(shuffledCards[add]);
 
+        /* activate the function to flip show */
+        deckCards[add].addEventListener('click', function() {
+            //you can only flip 2 cards max at the same time
+            if (flippedCards > 0) {
+            deckCards[add].className = 'card open show';
+            arrayflippedCards.push(deckCards[add]);
+            flippedCards--;
+            } else if (arrayflippedCards[0] == arrayflippedCards[1]){
+                flippedCards = 2;
+            } else {
+                deckCards[add].className='card';
+                deckCards[add-1].className='card';
+                flippedCards = 2;
+            }
+        });
+
+    }
 
 
 
