@@ -8,13 +8,14 @@ let deckCards = [...card];
 // counter moves
 let moves = document.querySelector('.moves').innerHTML;
 // counter cards flipped
-let flippedCards = 2;
+let flippedCards = 0;
 // array cards flipped
 let arrayflippedCards = [];
 
 
-/* remove cards from the div .deck */
-let shuffledCards = shuffle(deckCards);
+function mixCards() {
+    /* remove cards from the div .deck */
+    const shuffledCards = shuffle(deckCards);
 
     for (remove of deckCards) {
         baseDeck.removeChild(document.querySelector('.card'));
@@ -23,27 +24,26 @@ let shuffledCards = shuffle(deckCards);
     /* Add cards shuffled to the div .deck */
     for (let add = 0; add < deckCards.length; add++) {
         baseDeck.appendChild(shuffledCards[add]);
-
-        /* activate the function to flip show */
-        deckCards[add].addEventListener('click', function() {
-            //you can only flip 2 cards max at the same time
-            if (flippedCards > 0) {
-            deckCards[add].className = 'card open show';
-            arrayflippedCards.push(deckCards[add]);
-            flippedCards--;
-            } else if (arrayflippedCards[0] == arrayflippedCards[1]){
-                flippedCards = 2;
-            } else {
-                deckCards[add].className='card';
-                deckCards[add-1].className='card';
-                arrayflippedCards = [];
-                flippedCards = 2;
-            }
-        });
-
     }
 
+}
 
+function turnCards() {
+    for (let i=0; i<deckCards.length; i++) {
+            deckCards[i].addEventListener('click', function(){
+                deckCards[i].classList.add('show', 'open');
+                arrayflippedCards.push(deckCards[i].childNodes[1]);
+                flippedCards++;
+            });
+    }
+}
+
+function startGame() {
+    mixCards();
+    turnCards();
+}
+
+startGame();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
