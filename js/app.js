@@ -6,9 +6,10 @@ let card = document.querySelectorAll(".card");
 let deckCards = [...card];
 
 // counter moves
-let moves = document.querySelector('.moves').innerHTML;
-// counter cards flipped
-let flippedCards = 0;
+let movesNum = 0;
+let moves = document.querySelector('.moves');
+moves.innerHTML = movesNum;
+
 // array cards flipped
 let arrayflippedCards = [];
 
@@ -28,22 +29,32 @@ function mixCards() {
 
 }
 
-function turnCards() {
-    for (let i=0; i<deckCards.length; i++) {
-            deckCards[i].addEventListener('click', function(){
-                deckCards[i].classList.add('show', 'open');
-                arrayflippedCards.push(deckCards[i].childNodes[1]);
-                flippedCards++;
-            });
-    }
+mixCards();
+
+for (let i=0; i<deckCards.length; i++) {
+    deckCards[i].addEventListener('click', function(){
+        deckCards[i].classList.add('show', 'open');
+        arrayflippedCards.push(this);
+
+         if (arrayflippedCards.length === 2) {
+            if (arrayflippedCards[0].querySelector('i').classList.value === arrayflippedCards[1].querySelector('i').classList.value)
+            {
+                arrayflippedCards[0].classList.add('match');
+                arrayflippedCards[1].classList.add('match');
+                arrayflippedCards = [];
+            } else {
+                setTimeout(() => {
+                    arrayflippedCards[0].classList.remove('show', 'open');
+                    arrayflippedCards[1].classList.remove('show', 'open');
+                    arrayflippedCards = [];
+                }, 300);
+               
+            }
+         }
+        
+    });
 }
 
-function startGame() {
-    mixCards();
-    turnCards();
-}
-
-startGame();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
