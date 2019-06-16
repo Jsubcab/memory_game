@@ -1,6 +1,6 @@
-/*
- * Create a list that holds all of your cards
- */
+//
+//  INITIAL DECLARATIONS
+//
 const baseDeck = document.querySelector(".deck");
 let card = document.querySelectorAll(".card");
 let deckCards = [...card];
@@ -8,41 +8,56 @@ let deckCards = [...card];
 // counter moves
 let movesNum = 0;
 let moves = document.querySelector('.moves');
-moves.innerHTML = movesNum;
 
 // array cards flipped
 let arrayflippedCards = [];
 
+// -----------------------
 
 function mixCards() {
-    /* remove cards from the div .deck */
-    const shuffledCards = shuffle(deckCards);
+/* remove cards from the div .deck */
+const shuffledCards = shuffle(deckCards);
 
-    for (remove of deckCards) {
-        baseDeck.removeChild(document.querySelector('.card'));
-    }
-
-    /* Add cards shuffled to the div .deck */
-    for (let add = 0; add < deckCards.length; add++) {
-        baseDeck.appendChild(shuffledCards[add]);
-    }
-
+for (remove of deckCards) {
+    baseDeck.removeChild(document.querySelector('.card'));
 }
 
-mixCards();
+/* Add cards shuffled to the div .deck */
+for (let add = 0; add < deckCards.length; add++) {
+    baseDeck.appendChild(shuffledCards[add]);
+}
+}
 
+function movesCounter() {
+    movesNum++;
+    moves.innerHTML = movesNum;
+}
+
+//function for mixing cards at the beginning
+mixCards();
+//restart the moves to 0
+moves.innerHTML = movesNum;
+
+//Basically the main engine of the game
 for (let i=0; i<deckCards.length; i++) {
+    //Add eventlistener to my deck
     deckCards[i].addEventListener('click', function(){
         deckCards[i].classList.add('show', 'open');
+        //Add cards to the array for checking if they match later
         arrayflippedCards.push(this);
 
+        // Check if the cards match in my array and add moves
          if (arrayflippedCards.length === 2) {
+            //Add one move
+            movesCounter();
+
             if (arrayflippedCards[0].querySelector('i').classList.value === arrayflippedCards[1].querySelector('i').classList.value)
             {
                 arrayflippedCards[0].classList.add('match');
                 arrayflippedCards[1].classList.add('match');
                 arrayflippedCards = [];
             } else {
+                //IMPORTANT: timing for hiding, if not hides instantly
                 setTimeout(() => {
                     arrayflippedCards[0].classList.remove('show', 'open');
                     arrayflippedCards[1].classList.remove('show', 'open');
