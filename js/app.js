@@ -5,6 +5,12 @@ const baseDeck = document.querySelector(".deck");
 const card = document.querySelectorAll(".card");
 const deckCards = [...card];
 
+//timer
+const timer = document.querySelector('.timer');
+let minutes = `00`;
+let seconds = `00`;
+let interval;
+
 // restart button
 const restartButton = document.querySelector('.restart');
 
@@ -15,6 +21,8 @@ moves.innerHTML = movesNum;
 
 // array cards flipped
 let arrayflippedCards = [];
+let matchedCards = 0;
+
 
 // -----------------------
 
@@ -35,6 +43,9 @@ function mixCards() {
 function movesCounter() {
     movesNum++;
     moves.innerHTML = movesNum;
+    if (movesNum == 1) {
+        timingCount();
+    }
 }
 
 //function for mixing cards at the beginning
@@ -42,22 +53,51 @@ mixCards();
 
 //restart button is pressed
 function restartGame() {
-
     arrayflippedCards = [];
     movesNum = 0;
     moves.innerHTML = movesNum;
+
+    minutes = `00`;
+    seconds = `00`;
+    clearInterval(interval);
+   
+
 
     for (let i=0; i<deckCards.length; i++) {
         deckCards[i].classList.remove('show', 'open', 'match');
     }
 }
 
-function timeCount() {
-    let hour = 0;
-    let min = 0;
-    let sec= 0;
+function timingCount(){
+    interval = setInterval( () => {
+    timer.innerHTML = minutes + ":" + seconds;
+    seconds++;
+    if (seconds < 10) {
+        seconds = `0` + seconds;
+    }
+    else if (seconds == 60) {
+        minutes++;
+        seconds = `0`;
+    }
+    }
+    , 1000);
+}
+
+
+function end() {
+ let record = document.querySelector('.record');
+ let playagain = document.getElementById('button');
+
+record.innerHTML = `Moves = ${movesNum} Time = ${minutes}: ${seconds}`;
+
+button.addEventListener('click', () =>
+{
+
+});
 
 }
+
+
 
 //eventlistener for restarting the game
 restartButton.addEventListener('click', restartGame);
@@ -80,6 +120,13 @@ for (let i=0; i<deckCards.length; i++) {
                 arrayflippedCards[0].classList.add('match');
                 arrayflippedCards[1].classList.add('match');
                 arrayflippedCards = [];
+                matchedCards++;
+                if (matchedCards === 8) {
+                    windows.addEventListener('load', function()
+                    {
+                        end();
+                    });      
+                }
             } else {
                 //IMPORTANT: timing for hiding, if not hides instantly
                 setTimeout(() => {
@@ -93,7 +140,6 @@ for (let i=0; i<deckCards.length; i++) {
         
     });
 }
-
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
