@@ -2,12 +2,16 @@
 //  INITIAL DECLARATIONS
 //
 const baseDeck = document.querySelector(".deck");
-let card = document.querySelectorAll(".card");
-let deckCards = [...card];
+const card = document.querySelectorAll(".card");
+const deckCards = [...card];
+
+// restart button
+const restartButton = document.querySelector('.restart');
 
 // counter moves
 let movesNum = 0;
 let moves = document.querySelector('.moves');
+moves.innerHTML = movesNum;
 
 // array cards flipped
 let arrayflippedCards = [];
@@ -15,17 +19,17 @@ let arrayflippedCards = [];
 // -----------------------
 
 function mixCards() {
-/* remove cards from the div .deck */
-const shuffledCards = shuffle(deckCards);
+    /* remove cards from the div .deck */
+    const shuffledCards = shuffle(deckCards);
 
-for (remove of deckCards) {
-    baseDeck.removeChild(document.querySelector('.card'));
-}
+    for (remove of deckCards) {
+        baseDeck.removeChild(document.querySelector('.card'));
+    }
 
-/* Add cards shuffled to the div .deck */
-for (let add = 0; add < deckCards.length; add++) {
-    baseDeck.appendChild(shuffledCards[add]);
-}
+    /* Add cards shuffled to the div .deck */
+    for (let add = 0; add < deckCards.length; add++) {
+        baseDeck.appendChild(shuffledCards[add]);
+    }
 }
 
 function movesCounter() {
@@ -35,8 +39,28 @@ function movesCounter() {
 
 //function for mixing cards at the beginning
 mixCards();
-//restart the moves to 0
-moves.innerHTML = movesNum;
+
+//restart button is pressed
+function restartGame() {
+
+    arrayflippedCards = [];
+    movesNum = 0;
+    moves.innerHTML = movesNum;
+
+    for (let i=0; i<deckCards.length; i++) {
+        deckCards[i].classList.remove('show', 'open', 'match');
+    }
+}
+
+function timeCount() {
+    let hour = 0;
+    let min = 0;
+    let sec= 0;
+
+}
+
+//eventlistener for restarting the game
+restartButton.addEventListener('click', restartGame);
 
 //Basically the main engine of the game
 for (let i=0; i<deckCards.length; i++) {

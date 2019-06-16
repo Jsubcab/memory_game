@@ -98,6 +98,12 @@ h1 {
     margin: 0 5px 0 0;
 }
 
+.timer {
+    font-family: 'Coda', cursive;
+    margin: 0 5px 0 30px;
+    display: inline-block;
+}
+
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
