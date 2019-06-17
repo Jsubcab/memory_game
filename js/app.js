@@ -1,9 +1,14 @@
 //
 //  INITIAL DECLARATIONS
 //
-const baseDeck = document.querySelector(".deck");
-const card = document.querySelectorAll(".card");
-const deckCards = [...card];
+let baseDeck = document.querySelector(".deck");
+let card = document.querySelectorAll(".card");
+let deckCards = [...card];
+
+//stars
+
+const stars = document.querySelector('.stars');
+let starsArray = [...stars];
 
 //timer
 const timer = document.querySelector('.timer');
@@ -28,7 +33,7 @@ let matchedCards = 0;
 
 function mixCards() {
     /* remove cards from the div .deck */
-    const shuffledCards = shuffle(deckCards);
+    let shuffledCards = shuffle(deckCards);
 
     for (remove of deckCards) {
         baseDeck.removeChild(document.querySelector('.card'));
@@ -57,11 +62,13 @@ function restartGame() {
     movesNum = 0;
     moves.innerHTML = movesNum;
 
+
+    mixCards();
+
     minutes = `00`;
     seconds = `00`;
+    timer.innerHTML = minutes + ":" + seconds;
     clearInterval(interval);
-   
-
 
     for (let i=0; i<deckCards.length; i++) {
         deckCards[i].classList.remove('show', 'open', 'match');
@@ -84,20 +91,26 @@ function timingCount(){
 }
 
 
+
+
 function end() {
  let record = document.querySelector('.record');
- let playagain = document.getElementById('button');
+ let playagain = document.querySelector('#button');
+ let endDiv = document.querySelector(".end");
+ clearInterval(this.interval);
 
-record.innerHTML = `Moves = ${movesNum} Time = ${minutes}: ${seconds}`;
+record.outerHTML = ` <br> Moves = ${movesNum} <br> Time = ${minutes}: ${seconds}`;
 
-button.addEventListener('click', () =>
-{
+endDiv.style.display = 'block';
+arrayflippedCards[0].classList.remove ('show', 'open');
+arrayflippedCards[1].classList.remove ('show', 'open');
 
+playagain.addEventListener('click', () => {
+    endDiv.style.display = 'none';
+    restartGame();
 });
 
 }
-
-
 
 //eventlistener for restarting the game
 restartButton.addEventListener('click', restartGame);
@@ -119,14 +132,12 @@ for (let i=0; i<deckCards.length; i++) {
             {
                 arrayflippedCards[0].classList.add('match');
                 arrayflippedCards[1].classList.add('match');
-                arrayflippedCards = [];
+
                 matchedCards++;
-                if (matchedCards === 8) {
-                    windows.addEventListener('load', function()
-                    {
+                if (matchedCards === 1) {
                         end();
-                    });      
                 }
+                arrayflippedCards = [];
             } else {
                 //IMPORTANT: timing for hiding, if not hides instantly
                 setTimeout(() => {
@@ -134,10 +145,10 @@ for (let i=0; i<deckCards.length; i++) {
                     arrayflippedCards[1].classList.remove('show', 'open');
                     arrayflippedCards = [];
                 }, 300);
-               
+
             }
          }
-        
+
     });
 }
 
