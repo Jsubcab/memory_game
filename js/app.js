@@ -123,13 +123,18 @@ function end() {
  let record = document.querySelector('.record');
  let playagain = document.querySelector('#button');
  let endDiv = document.querySelector(".end");
+
  clearInterval(this.interval);
 
-record.innerHTML = ` <br> Moves = ${movesNum} <br> Time = ${minutes}: ${seconds}`;
+record.innerHTML = ` <br> Moves = ${movesNum} <br> Time = ${minutes}: ${seconds} <br> Stars = ${stars.innerHTML}`;
 
 endDiv.style.display = 'block';
 arrayflippedCards[0].classList.remove ('show', 'open');
 arrayflippedCards[1].classList.remove ('show', 'open');
+
+for (let i=0;i<deckCards.length;i++) {
+    deckCards[i].classList.remove('show','open');
+}
 
 playagain.addEventListener('click', () => {
     endDiv.style.display = 'none';
@@ -148,7 +153,8 @@ for (let i=0; i<deckCards.length; i++) {
         //to every target (every card) i add the classlist
         e.target.classList.add('show', 'open');
         //Add cards to the array for checking if they match later
-        arrayflippedCards.push(this);
+
+        arrayflippedCards.push(e.target);
 
         // Check if the cards match in my array and add moves
          if (arrayflippedCards.length === 2) {
