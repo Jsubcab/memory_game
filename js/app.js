@@ -6,15 +6,16 @@ let card = document.querySelectorAll(".card");
 let deckCards = [...card];
 
 //stars
-
 const stars = document.querySelector('.stars');
 let starsArray = [...stars.children];
+//counter helps to determine if already have been decreased one star
 let counter = 3;
 
 //timer
 const timer = document.querySelector('.timer');
 let minutes = `00`;
 let seconds = `00`;
+//here is recorded the timing so i can stopped later from any function
 let interval;
 
 // restart button
@@ -46,6 +47,7 @@ function mixCards() {
     }
 }
 
+//function to count the amount of moves player does
 function movesCounter() {
     movesNum++;
     moves.innerHTML = movesNum;
@@ -66,7 +68,7 @@ function restartGame() {
     movesNum = 0;
     moves.innerHTML = movesNum;
     counter = 3;
-
+    matchedCards = 0;
 
     mixCards();
 
@@ -80,7 +82,7 @@ function restartGame() {
     }
 
     for (j=0; j<starsArray.length; j++){
-        starsArray[j].style.display = 'inline-block'; 
+        starsArray[j].style.display = 'inline-block';
     }
 }
 
@@ -105,8 +107,8 @@ function timingCount(){
 function starsCounter(rule) {
 
     if (rule) {
-        starsArray[2].style.display = 'none';   
-    }  
+        starsArray[2].style.display = 'none';
+    }
     if ((rule) && (counter === 2)) {
         starsArray[1].style.display = 'none';
     }
@@ -123,7 +125,7 @@ function end() {
  let endDiv = document.querySelector(".end");
  clearInterval(this.interval);
 
-record.outerHTML = ` <br> Moves = ${movesNum} <br> Time = ${minutes}: ${seconds}`;
+record.innerHTML = ` <br> Moves = ${movesNum} <br> Time = ${minutes}: ${seconds}`;
 
 endDiv.style.display = 'block';
 arrayflippedCards[0].classList.remove ('show', 'open');
@@ -141,9 +143,10 @@ restartButton.addEventListener('click', restartGame);
 
 //Basically the main engine of the game
 for (let i=0; i<deckCards.length; i++) {
-    //Add eventlistener to my deck
-    deckCards[i].addEventListener('click', function(){
-        deckCards[i].classList.add('show', 'open');
+    //Add eventlistener to my deck of cards one by one
+    deckCards[i].addEventListener('click', function(e){
+        //to every target (every card) i add the classlist
+        e.target.classList.add('show', 'open');
         //Add cards to the array for checking if they match later
         arrayflippedCards.push(this);
 
@@ -160,6 +163,7 @@ for (let i=0; i<deckCards.length; i++) {
                 matchedCards++;
                 if (matchedCards === 1) {
                         end();
+
                 }
                 arrayflippedCards = [];
             } else {
