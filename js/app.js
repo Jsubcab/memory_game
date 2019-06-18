@@ -8,7 +8,8 @@ let deckCards = [...card];
 //stars
 
 const stars = document.querySelector('.stars');
-let starsArray = [...stars];
+let starsArray = [...stars.children];
+let counter = 3;
 
 //timer
 const timer = document.querySelector('.timer');
@@ -51,6 +52,9 @@ function movesCounter() {
     if (movesNum == 1) {
         timingCount();
     }
+    if ((movesNum === 10) || (movesNum === 20)) {
+        starsCounter(true);
+    }
 }
 
 //function for mixing cards at the beginning
@@ -61,6 +65,7 @@ function restartGame() {
     arrayflippedCards = [];
     movesNum = 0;
     moves.innerHTML = movesNum;
+    counter = 3;
 
 
     mixCards();
@@ -72,6 +77,10 @@ function restartGame() {
 
     for (let i=0; i<deckCards.length; i++) {
         deckCards[i].classList.remove('show', 'open', 'match');
+    }
+
+    for (j=0; j<starsArray.length; j++){
+        starsArray[j].style.display = 'inline-block'; 
     }
 }
 
@@ -85,12 +94,27 @@ function timingCount(){
     else if (seconds == 60) {
         minutes++;
         seconds = `0`;
+        if (minutes === 2) {
+            starsCounter(true);
+        }
     }
     }
     , 1000);
 }
 
+function starsCounter(rule) {
 
+    if (rule) {
+        starsArray[2].style.display = 'none';   
+    }  
+    if ((rule) && (counter === 2)) {
+        starsArray[1].style.display = 'none';
+    }
+    if ((rule) && (counter === 1)) {
+        starsArray[0].style.display = 'none';
+    }
+    counter--;
+}
 
 
 function end() {
