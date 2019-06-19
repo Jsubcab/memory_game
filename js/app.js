@@ -167,7 +167,7 @@ for (let i=0; i<deckCards.length; i++) {
                 arrayflippedCards[1].classList.add('match');
 
                 matchedCards++;
-                if (matchedCards === 1) {
+                if (matchedCards === 8) {
                         end();
 
                 }
