@@ -4,7 +4,7 @@
 
 * Download and unzip the file.
 * Open it with a localhost server (Visual Code, XAMPP).
-* Start the index.html
+* Initiate the index.html.
 
 ## Instructions
 
