@@ -2,8 +2,8 @@
 
 ## How to install
 
-- Download and unzip the file.
-- Open it with a localhost server (Visual Code, XAMPP).
+* Download and unzip the file.
+* Open it with a localhost server (Visual Code, XAMPP).
 
 ## Instructions
 
